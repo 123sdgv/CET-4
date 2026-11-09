@@ -31,6 +31,10 @@ async function draw(): Promise<void> {
     stat(studyDays, '累计天数'),
     stat(mastered, '已掌握'),
     stat(state.words.length, '词库'),
+    stat([...t.cards.values()].filter((c) => state.wordMap.has(c.id)).length, '学过', true),
+    stat(t.plan.dueLeft, '待复习', true),
+    stat(state.words.filter((w) => w.type === '单词').length, '单词', true),
+    stat(state.words.filter((w) => w.type === '短语').length, '短语', true),
   )
 
   const stepper = h(
@@ -78,8 +82,8 @@ async function draw(): Promise<void> {
   )
 }
 
-function stat(n: number, label: string) {
-  return h('div', {}, h('b', {}, n), h('span', {}, label))
+function stat(n: number, label: string, minor = false) {
+  return h('div', { class: minor ? 'minor' : '' }, h('b', {}, n), h('span', {}, label))
 }
 
 function group(...rows: HTMLElement[]) {

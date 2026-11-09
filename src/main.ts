@@ -33,7 +33,21 @@ async function go(next: Tab) {
   else await mountMe(view)
 }
 
+// 保证主屏幕图标和清单文件指向正确的子路径（如 /CET-4/）
+function fixHeadLinks() {
+  const base = import.meta.env.BASE_URL
+  const set = (rel: string, href: string) => {
+    let l = document.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`)
+    if (!l) { l = document.createElement('link'); l.rel = rel; document.head.append(l) }
+    l.href = base + href
+  }
+  set('apple-touch-icon', 'icons/apple-touch-icon.png')
+  set('icon', 'icons/icon-192.png')
+  set('manifest', 'manifest.webmanifest')
+}
+
 async function start() {
+  fixHeadLinks()
   document.body.append(h('div', { class: 'app' }, view, nav))
   navigator.storage?.persist?.().catch(() => {})
   await loadSettings()

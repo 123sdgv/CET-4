@@ -33,6 +33,8 @@ jobs:
         run: npx vite build
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
+      - name: 检查页面头部链接
+        run: grep -o '<link[^>]*>' dist/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
