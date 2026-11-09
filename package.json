@@ -1,0 +1,22 @@
+{
+  "name": "cet-vocab",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "vocab": "node scripts/merge-vocab.mjs",
+    "dev": "node scripts/merge-vocab.mjs && vite",
+    "build": "node scripts/merge-vocab.mjs && vite build",
+    "preview": "vite preview",
+    "test": "node --test \"tests/*.test.ts\""
+  },
+  "dependencies": {
+    "ts-fsrs": "^6.0.0"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
